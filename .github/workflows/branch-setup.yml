@@ -3,7 +3,7 @@ name: Deploy Setup
 on:
   push:
     branches:
-      - gu-branch
+      - feature-gu
 
 jobs:
   terraform-plan:
