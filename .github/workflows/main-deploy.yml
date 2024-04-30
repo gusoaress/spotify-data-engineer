@@ -1,0 +1,48 @@
+name: Deploy AWS
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  terraform-apply:
+    if:
+      github.event.pull_request.merged == true && exists('infra')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Change to infra directory
+        run: cd infra
+
+      - name: Configure AWS Credentials
+        run: aws configure set profile "${{ secrets.AWS_PROFILE_NAME }}"
+        env:
+          AWS_PROFILE_NAME: ${{ secrets.AWS_PROFILE_NAME }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
+      - name: Check Config File
+        run: |
+          if grep -q "destroy: true" config.yml; then
+            echo "destroy: true found in config.yml. Do you want to proceed and delete the AWS Stack of this repository?"
+            echo "Type 'yes' to proceed or anything else to cancel."
+            read answer
+            if [ "$answer" == "yes" ]; then
+              terraform destroy -auto-approve
+            else
+              echo "Canceling Terraform Destroy"
+              exit 1
+            fi
+          fi
+
+      - name: Complete Merge
+        run: git merge main
+
+    env:
+      AWS_PROFILE: ${{ secrets.AWS_PROFILE_NAME }}

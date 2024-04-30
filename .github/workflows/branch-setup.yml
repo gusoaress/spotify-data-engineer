@@ -1,0 +1,37 @@
+name: Deploy Setup
+
+on:
+  push:
+    branches:
+      - gu-branch
+
+jobs:
+  terraform-plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Change to infra directory
+        run: cd infra
+
+      - name: Configure AWS Credentials
+        run: aws configure set profile "${{ secrets.AWS_PROFILE_NAME }}"
+        env:
+          AWS_PROFILE_NAME: ${{ secrets.AWS_PROFILE_NAME }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Open Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Stack Construct"
+          title: "Terraform Plan"
+          branch: main
+          body: This PR plans the deploy and stack construction
+          draft: false
