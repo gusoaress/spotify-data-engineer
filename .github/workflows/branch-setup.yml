@@ -25,7 +25,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=infra/tfplan
 
       - name: Open Pull Request
         uses: peter-evans/create-pull-request@v3
