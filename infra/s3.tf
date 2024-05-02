@@ -4,7 +4,7 @@
 
 #Criando o bucket de recebimento dos dados
 resource "aws_s3_bucket" "staging-data-891377294764" {
-  bucket = "stagin-data-891377294764"
+  bucket = "staging-data-891377294764"
 }
 
 #Upload dos arquivos spotify - fonte https://www.kaggle.com/datasets/tonygordonjr/spotify-dataset-2023?resource=download
