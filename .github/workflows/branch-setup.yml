@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - feature-gu
-
 jobs:
   terraform:
     name: Terraform Actions
@@ -21,13 +20,16 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.7.0
-          terraform_wrapper: false
 
       - name: Terraform Format
         id: fmt
-        run: terraform fmt -check
+        run: |
+          if terraform fmt -check; then
+            echo "Terraform files are correctly formatted."
+          else
+            echo "Terraform files are incorrectly formatted. Please run 'terraform fmt' to format them."
+            exit 1
+          fi
 
       - name: Terraform Init
         id: init
