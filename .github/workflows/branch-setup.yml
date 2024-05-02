@@ -6,19 +6,20 @@ on:
       - feature-gu
 
 jobs:
-  terraform-plan:
+  terraform:
+    name: Terraform Actions
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.7.0
 
       - name: Change to infra directory
         run: cd infra
-
-      - name: Configure AWS Credentials
-        run: aws configure set profile "${{ secrets.AWS_PROFILE_NAME }}"
-        env:
-          AWS_PROFILE_NAME: ${{ secrets.AWS_PROFILE_NAME }}
 
       - name: Terraform Init
         run: terraform init
