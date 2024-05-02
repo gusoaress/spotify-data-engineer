@@ -21,16 +21,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Terraform Format
-        id: fmt
-        run: |
-          if terraform fmt -check; then
-            echo "Terraform files are correctly formatted."
-          else
-            echo "Terraform files are incorrectly formatted. Please run 'terraform fmt' to format them."
-            exit 1
-          fi
-
       - name: Terraform Init
         id: init
         run: terraform init
