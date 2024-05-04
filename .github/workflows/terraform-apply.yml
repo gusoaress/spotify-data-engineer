@@ -8,7 +8,7 @@ env:
   TF_CLOUD_ORGANIZATION: "gu-soares-personal-education"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "terraform-automation"
-  CONFIG_DIRECTORY: "./infra"
+  CONFIG_DIRECTORY: "./"
 
 jobs:
   terraform:
