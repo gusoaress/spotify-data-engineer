@@ -12,7 +12,7 @@ env:
 
 jobs:
   terraform:
-    if: github.repository != 'gusoaress/spotify-data-engineer'
+    if: github.repository = 'gusoaress/spotify-data-engineer'
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     permissions:
