@@ -52,7 +52,7 @@ jobs:
           title: "Terraform Plan Complete"
           branch: main
           body: This PR plans the deploy and stack construction
-          draft: false
+          draft: true
 
       - name: Wait for Manual Merge
         run: echo "Please merge the pull request manually"
