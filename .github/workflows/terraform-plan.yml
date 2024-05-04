@@ -47,7 +47,7 @@ jobs:
       - name: Open Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN_GITHUB }}
           commit-message: "Stack Construct"
           title: "Terraform Plan Complete"
           branch: main
