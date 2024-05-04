@@ -44,16 +44,15 @@ jobs:
         with:
           plan: ${{ fromJSON(steps.plan-run.outputs.payload).data.relationships.plan.data.id }}
 
-      - name: Open Pull Request to Main
+      - name: Open Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.TOKEN_GITHUB }}
-          commit-message: "Automatically open PR after Terraform Plan"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Stack Construct"
           title: "Terraform Plan Complete"
-          body: "The Terraform plan has been successfully generated. Please review and merge."
           branch: main
-          base: main
-          head: feature-gu
+          body: This PR plans the deploy and stack construction
+          draft: false
 
       - name: Wait for Manual Merge
         run: echo "Please merge the pull request manually"
