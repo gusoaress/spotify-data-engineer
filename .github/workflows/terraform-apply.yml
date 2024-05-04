@@ -8,7 +8,10 @@ env:
   TF_CLOUD_ORGANIZATION: "gu-soares-personal-education"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "terraform-automation"
-  CONFIG_DIRECTORY: "./"
+  CONFIG_DIRECTORY: "./infra"
+  SPOTIFY_ALBUM_SOURCE: ${{ secrets.SPOTIFY_ALBUM_SOURCE }}
+  SPOTIFY_ARTIST_SOURCE: ${{ secrets.SPOTIFY_ARTIST_SOURCE }}
+  SPOTIFY_TRACK_SOURCE: ${{ secrets.SPOTIFY_TRACK_SOURCE }}
 
 jobs:
   terraform:
@@ -26,6 +29,12 @@ jobs:
         with:
           workspace: ${{ env.TF_WORKSPACE }}
           directory: ${{ env.CONFIG_DIRECTORY }}
+
+      - name: Set Terraform Variables
+        run: |
+          echo "spotify_album_source=${{ env.SPOTIFY_ALBUM_SOURCE }}" >> $GITHUB_ENV
+          echo "spotify_artist_source=${{ env.SPOTIFY_ARTIST_SOURCE }}" >> $GITHUB_ENV
+          echo "spotify_track_source=${{ env.SPOTIFY_TRACK_SOURCE }}" >> $GITHUB_ENV
 
       - name: Create Apply Run
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
