@@ -3,7 +3,7 @@ name: "Terraform Plan"
 on:
   push:
     branches:
-      - feature-gu
+      - developer-manager
 
 env:
   TF_CLOUD_ORGANIZATION: "gu-soares-personal-education"
@@ -44,16 +44,6 @@ jobs:
         with:
           plan: ${{ fromJSON(steps.plan-run.outputs.payload).data.relationships.plan.data.id }}
 
-      - name: Open Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.TOKEN_GITHUB }}
-          commit-message: "Stack Construct"
-          title: "Terraform Plan Complete"
-          branch: main
-          body: This PR plans the deploy and stack construction
-          draft: true
-
       - name: Wait for Manual Merge
-        run: echo "Please merge the pull request manually"
+        run: echo "Please open a PR manually to start de applying"
         if: always()
