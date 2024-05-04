@@ -52,6 +52,8 @@ jobs:
           title: "Terraform Plan Complete"
           body: "The Terraform plan has been successfully generated. Please review and merge."
           branch: main
+          base: main
+          head: feature-gu
 
       - name: Wait for Manual Merge
         run: echo "Please merge the pull request manually"
