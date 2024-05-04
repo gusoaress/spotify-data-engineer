@@ -47,8 +47,12 @@ jobs:
       - name: Open Pull Request to Main
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.TOKEN_GITHUB }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Automatically open PR after Terraform Plan"
           title: "Terraform Plan Complete"
           body: "The Terraform plan has been successfully generated. Please review and merge."
           branch: main
+
+      - name: Wait for Manual Merge
+        run: echo "Please merge the pull request manually"
+        if: always()
