@@ -20,7 +20,7 @@ Engineering Project using AWS resources provisioned with terraform scripts (iac)
 
 <h3> Project Architecture </h3>
 
-![Texto Alternativo](attached-files/Spotify ETL.drawio.png)
+![Texto Alternativo](https://github.com/gusoaress/spotify-data-engineer/blob/developer-manager/attached-files/Spotify%20ETL.drawio.png)
 
 
 
