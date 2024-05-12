@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_iam_role" "glue_role" {
   assume_role_policy = file("infra/iam/glue_trust.json")
   policy = file("infra/iam/glue_policy")
-  name: "glue_role"
+  name = "glue_role"
 }
 
 output "glue_role_arn" {
